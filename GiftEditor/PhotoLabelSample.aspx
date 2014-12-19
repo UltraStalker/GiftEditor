@@ -32,7 +32,7 @@
 			Personalize Your Gift</h1>
 		<form id="sampleForm" runat="server">
 		<asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"
-			EnablePageMethods="true" ScriptMode="Release">
+			EnablePageMethods="true">
 			<Scripts>
 				<%--main sample script--%>
 				<asp:ScriptReference Path="Scripts/Sample.js" />

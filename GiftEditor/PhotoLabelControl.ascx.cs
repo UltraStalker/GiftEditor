@@ -416,18 +416,12 @@ public partial class PhotoLabelControl : System.Web.UI.UserControl, IScriptContr
 	/// <returns>Serialized string.</returns>
 	public string SaveState(bool serializeBinaryData)
 	{
-		if (serializeBinaryData)
-			return _canvasViewer.Canvas.Serialize();
-		else
-			return _canvasViewer.Canvas.Data;
+		return _canvasViewer.Canvas.Data;
 	}
 
 	public void LoadState(string serializedData, bool withBinaryData)
 	{
-		if (withBinaryData)
-			_canvasViewer.Canvas.Deserialize(serializedData);
-		else
-			_canvasViewer.Canvas.Data = serializedData;
+		_canvasViewer.Canvas.Data = serializedData;
 	}
 
 	public Aurigma.GraphicsMill.Bitmap RenderRegion(string regionName, float dpi)

@@ -1,5 +1,6 @@
 obj/
 bin/
+App_Data/
 *.suo
-/packages
+packages/
 *.user

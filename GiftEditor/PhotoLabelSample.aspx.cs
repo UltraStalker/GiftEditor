@@ -232,7 +232,7 @@ public partial class PhotoLabelSample : System.Web.UI.Page
 	}
 
 	[System.Web.Services.WebMethod]
-	public static ImageVObjectData CreateImageVObject(string imageId)
+	public static string CreateImageVObject(string imageId)
 	{
 		string fileName = Array.Find(Directory.GetFiles(_imageFolder, "*.jpg"),
 			delegate(string s) { return s.GetHashCode().ToString() == imageId; });
@@ -256,12 +256,13 @@ public partial class PhotoLabelSample : System.Web.UI.Page
 		vo.FillColor = System.Drawing.Color.Transparent;
 
 		//proportional resize only
-		vo.SupportedActions &= ~VObjectAction.ArbitraryResize;
+		vo.Permissions.AllowArbitraryResize = false;
+        vo.Permissions.AllowRotate = false;
 
 		// Create thumbnail to show in the layers list
 		vo.Tag = GenerateThumbnail(fileName);
 
-		return new ImageVObjectData(vo);
+		return vo.Data;
 	}
 
 	private static string GenerateThumbnail(string imageFileName)

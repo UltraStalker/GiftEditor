@@ -43,19 +43,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aurigma.GraphicsMill, Version=5.5.6.0, Culture=neutral, PublicKeyToken=af7154c50c505858, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Aurigma.GraphicsMill.dll</HintPath>
+    <Reference Include="Aurigma.GraphicsMill">
+      <HintPath>..\packages\Aurigma.GraphicsMill.Core.x86.7.2.14\lib\net40\Aurigma.GraphicsMill.dll</HintPath>
     </Reference>
-    <Reference Include="Aurigma.GraphicsMill.AjaxControls, Version=5.5.4049.23706, Culture=neutral, PublicKeyToken=f4bbbf243f314012, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Aurigma.GraphicsMill.AjaxControls.dll</HintPath>
+    <Reference Include="Aurigma.GraphicsMill.AjaxControls">
+      <HintPath>..\packages\Aurigma.GraphicsMill.Web.x86.7.2.14\lib\net40\Aurigma.GraphicsMill.AjaxControls.dll</HintPath>
     </Reference>
-    <Reference Include="Aurigma.GraphicsMill.AjaxControls.VectorObjects, Version=5.5.4049.23707, Culture=neutral, PublicKeyToken=f4bbbf243f314012, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Aurigma.GraphicsMill.AjaxControls.VectorObjects.dll</HintPath>
+    <Reference Include="Aurigma.GraphicsMill.AjaxControls.VectorObjects">
+      <HintPath>..\packages\Aurigma.GraphicsMill.Web.x86.7.2.14\lib\net40\Aurigma.GraphicsMill.AjaxControls.VectorObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="Aurigma.Svg">
+      <HintPath>..\packages\Aurigma.GraphicsMill.Web.x86.7.2.14\lib\net40\Aurigma.Svg.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.6.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Svg">
+      <HintPath>..\packages\Aurigma.GraphicsMill.Web.x86.7.2.14\lib\net40\Svg.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -197,6 +203,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -212,7 +221,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56421</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56410/</IISUrl>
+          <IISUrl>http://localhost:56430/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

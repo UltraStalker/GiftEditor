@@ -12,7 +12,9 @@ PhotoLabel.PhotoLabelControl = function(element) {
 	this._zoomOutNavigatorId = null;
 	this._panNavigatorId = null;
 	this._regionDisplayStyle = { };
-	this._currentRegionDisplayStyle = { };
+	this._currentRegionDisplayStyle = {};
+
+	this._currentLayerIndex = -1;
 }
 
 PhotoLabel.PhotoLabelControl.prototype = {
@@ -194,17 +196,28 @@ PhotoLabel.PhotoLabelControl.prototype = {
     },
     
     set_currentRegion: function(regionName) {
-		var cv = this.get_canvasViewer().get_canvas();
+        var cv = this.get_canvasViewer().get_canvas();
+        var newIndex = -1;
+
 		if (regionName != null && regionName != "") {
 			var l = cv.get_layers().getLayersByName(regionName);
 			if (l.length > 0)
-				cv.set_currentLayerIndex(l[0].get_index());
-			else
-				cv.set_currentLayerIndex(-1);
-		} else {
-			cv.set_currentLayerIndex(-1);
+			    newIndex = l[0].get_index();
 		}
+
+		if (this._currentLayerIndex != newIndex) {
+		    cv.set_currentLayerIndex(newIndex);
+
+		    this._currentLayerIndex = newIndex;
+		    this._onCurrentRegionChanged();
+		}
+
 		this.pendingRedraw(100);
+    },
+
+    _get_lastRegion: function(){
+        var regions = this.getRegions();
+        return regions.length > 0 ? regions[regions.length - 1] : null;
     },
     
     _updateRegionStyle: function() {
@@ -339,11 +352,10 @@ PhotoLabel.PhotoLabelControl.prototype = {
     initialize : function() {
         PhotoLabel.PhotoLabelControl.callBaseMethod(this, 'initialize');
         
-        if (!this._currentRegionChangedDelegate)
-			this._currentRegionChangedDelegate = Function.createDelegate(this, this._onCurrentRegionChanged);
-        this.get_canvasViewer().get_canvas().add_currentLayerChanged(this._currentRegionChangedDelegate);
-        
-        
+        var lastRegion = this._get_lastRegion();
+        if (lastRegion != null)
+            this.set_currentRegion(lastRegion.Name);
+
         if (!this._onMouseDownDelegate)
 			this._onMouseDownDelegate = Function.createDelegate(this, this._onMouseDown);
         this.get_canvasViewer().add_workspaceMouseDown(this._onMouseDownDelegate);
@@ -381,21 +393,10 @@ PhotoLabel.PhotoLabelControl.prototype = {
     },
     
     dispose : function() {
-		var cv = this.get_canvasViewer().get_canvas();
-		if (this._updateRegionStyleDelegate) {
-			 cv.remove_currentLayerChanged(this._updateRegionStyleDelegate);
-			 delete this._updateRegionStyleDelegate;
-		}
-		
 		if (this._onMouseDownDelegate) {
 			this.get_canvasViewer().remove_workspaceMouseDown(this._onMouseDownDelegate);
 			delete this._onMouseDownDelegate;	
         }
-        
-        if (this._currentRegionChangedDelegate) {
-			cv.remove_currentLayerChanged(this._currentRegionChangedDelegate);
-			delete this._currentRegionChangedDelegate;
-		}
 		
 		PhotoLabel.PhotoLabelControl.callBaseMethod(this, 'dispose');
     }

@@ -44,11 +44,9 @@ Sample.addImageVObject = function (imageVObjectData, context) {
     if (curr) {
         var ns = Aurigma.GraphicsMill.AjaxControls.VectorObjects;
         var vo = new ns.ImageVObject();
-        ns.ImageVObjectData.applyState(imageVObjectData, vo);
+        vo.set_data(imageVObjectData);
         vo.beginUpdate();
-        //rotate mode by default
-        vo.set_supportedActions(vo.get_supportedActions() & ~ns.VObjectAction.rotate);
-        vo.set_maxSize({ Width: 70, Height: 70 });
+
         var r = vo.get_rectangle();
         if (context) {
             var left = context.point.x - 5;
@@ -92,11 +90,10 @@ Sample.addTextVObject = function () {
     var curr = phl.get_currentRegion();
     if (curr) {
         var ns = Aurigma.GraphicsMill.AjaxControls.VectorObjects;
-        var vo = new ns.TextVObject();
+        var vo = new ns.PlainTextVObject();
         vo.beginUpdate();
-        //rotate mode by default
-        vo.set_supportedActions(vo.get_supportedActions() & ~ns.VObjectAction.rotate);
 
+        vo.get_permissions().set_allowRotate(false);
         Sample.updateTextVObject(vo);
 
         if (vo.get_text() && vo.get_text() != "") {
@@ -255,7 +252,7 @@ Sample._textProperties = [
 Sample.updateTextVObject = function (vObject) {
     var properties = Sample._textProperties;
     var value;
-    var isUpdating = vObject.get_isUpdating();
+
     vObject.beginUpdate();
 
     for (var i in properties) {
@@ -283,8 +280,7 @@ Sample.updateTextVObject = function (vObject) {
         }
     }
 
-    if (!isUpdating)
-        vObject.endUpdate();
+    vObject.endUpdate();
 }
 
 Sample.updateTextTool = function (vObject) {
@@ -400,7 +396,7 @@ Sample._updateRegionTabPanel = function (layer) {
     //create list items
     for (var j = vObjects.get_count() - 1, i = j; i >= 0; i--) {
         var vo = vObjects.get_item(i);
-        var isText = ns.TextVObject.isInstanceOfType(vo);
+        var isText = ns.PlainTextVObject.isInstanceOfType(vo);
         var isImage = !isText && ns.ImageVObject.isInstanceOfType(vo);
         if (isText || isImage) {
             //build layer list item markup
@@ -429,7 +425,7 @@ Sample._updateRegionTabPanel = function (layer) {
             html.push("<div class=\"content\">"); //content div
             html.push("<img alt=\"layer img\" src=\"");
             if (isText) {
-                html.push("App_Themes/Default/Images/TextLayer.gif");
+                html.push("styles/default/images/textlayer.gif");
             } else if (isImage) {
                 //get link to thumbnail
                 html.push(vo.get_tag());
@@ -597,24 +593,24 @@ Sample._pendingRedraw = function (interval) {
 }
 
 Sample._changeSupportAction = function (event) {
-    var actions = Aurigma.GraphicsMill.AjaxControls.VectorObjects.VObjectAction;
-    var newActions = ~(actions.resize | actions.rotate);
     var btn = $(this);
     var isSupport = btn.parent().hasClass("selected");
-    $(".toolbar li.group2").removeClass("selected");
-    var vobjects = Sample.get_photoLabel().getVObjects();
-    if (!isSupport) {
+
+    if (isSupport)
+        btn.parent().removeClass("selected");
+    else
         btn.parent().addClass("selected");
-        if (btn.attr("rel") === "rotate")
-        //allow rotate
-            newActions |= actions.rotate;
-        else if (btn.attr("rel") === "resize")
-        //allow resize
-            newActions |= actions.proportionalResize;
+
+    var vobjects = Sample.get_photoLabel().getVObjects();
+    for (var i in vobjects) {
+        if (btn.attr("rel") === "rotate") {
+            vobjects[i].get_permissions().set_allowRotate(!isSupport);
+        }
+        else if (btn.attr("rel") === "resize") {
+            vobjects[i].get_permissions().set_allowProportionalResize(!isSupport);
+        }
     }
-    //change supported actions on every vobject
-    for (var i in vobjects)
-        vobjects[i].set_supportedActions(newActions);
+    
     Sample.get_photoLabel().pendingRedraw(50);
 }
 
@@ -623,6 +619,8 @@ Sample.init = function () {
     var phl = Sample.get_photoLabel();
     var cv = phl.get_canvasViewer().get_canvas();
     var h = cv.get_history();
+
+    phl.get_canvasViewer().set_clearSelectionOnDocumentClick(false);
 
     //image list behaviour
     var imageList = $find(Sample.imageListId);
@@ -642,7 +640,7 @@ Sample.init = function () {
     //edit text object
     $("#editTextButton").bind("click", function (event) {
         var vo = $("#textMenu").data("vObject");
-        if (ns.TextVObject.isInstanceOfType(vo))
+        if (ns.PlainTextVObject.isInstanceOfType(vo))
             Sample.updateTextVObject(vo);
         $("#textMenu").slideUp("fast");
         $("div.regions div.tabPanel ul li.listItem a.edit").removeClass("pushed");
