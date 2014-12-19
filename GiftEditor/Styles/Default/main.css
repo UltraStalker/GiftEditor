@@ -1,0 +1,198 @@
+﻿#wrapper
+{
+	width: 950px;
+	min-height: 100%;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#mainPanel
+{
+	margin-right: 325px;
+	position: relative;
+}
+
+#toolPanel
+{
+	width: 325px;
+	float: right;
+	font-size: 90%;
+	position: relative;
+}
+
+#toolPanel .textOptions table td, #toolPanel .textOptions table th
+{
+	font-weight: 400 !important;
+}
+
+#templateList
+{
+	height: 114px;
+	margin: 20px auto 30px auto;
+}
+
+.pageLeft, .pageRight
+{
+	width: 30px;
+	height: 100%;
+	float: left;
+	cursor: pointer;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.pageLeft
+{
+	background-image: url(Images/imageNavLeft.gif);
+}
+
+.pageLeft:hover
+{
+	background-image: url(Images/imageNavLeftHover.gif);
+}
+
+.pageRight
+{
+	background-image: url(Images/imageNavRight.gif);
+}
+
+.pageRight:hover
+{
+	background-image: url(Images/imageNavRightHover.gif);
+}
+
+.horizontalContainer
+{
+	float: left;
+	width: 865px;
+	height: 113px;
+	overflow: hidden;
+	position: relative;
+	padding: 0 0 0 10px;
+	border: solid 1px #D6D6D6;
+}
+
+.horizontalList li
+{
+	float: left;
+	display: block;
+	width: 150px;
+	height: 100px;
+	margin: 5px 10px 5px 0px;
+	border: solid 1px #d6d6d6;
+}
+
+.horizontalList li a
+{
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.horizontalList li:hover
+{
+	border: solid 1px #5050ff;
+}
+
+li.selectedTemplate
+{
+	border: solid 1px #5050ff;
+}
+
+#displayRegionButton
+{
+	background-image: url(images/NavigationPanel/RegionButton.gif);
+	background-position: -16px 0px;
+}
+
+li.selected #displayRegionButton
+{
+	background-position: 0px 0px;
+}
+
+h2
+{
+	font-size: larger;
+	margin: 10px 0 5px 0;
+}
+
+p
+{
+	margin: 5px 0 10px 0;
+}
+
+#controlPanel
+{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.toolBox
+{
+	height: 25px;
+	margin-bottom: 10px;
+}
+
+.toolBoxRightGroup
+{
+	float: right;
+}
+
+.toolBoxButton
+{
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+	cursor: default;
+	overflow: visible;
+	border: 1px solid #D6D6D6;
+	text-align: center;
+	padding: 3px;
+	margin: 0 0px 2px 5px;
+	float: left;
+	vertical-align: middle;
+	font-size: small;
+}
+
+.toolBoxButtonSelected
+{
+	background-color: #CCDDFF;
+}
+
+#regionTabs
+{
+	width: 317px;
+	height: 560px;
+	position: relative;
+}
+
+#regionListPanel div.tabPanel
+{
+	position: relative;
+	height: 445px;
+}
+
+#regionListPanel div.tabPanel ul
+{
+	display: block;
+	overflow-x: visible;
+	overflow-y: scroll;
+	height: 420px;
+	border: solid 1px #D6D6D6;
+	position: relative;
+}
+
+#regionListPanel div.tabPanel ul li
+{
+	width: 245px;
+	height: 50px;
+}
+
+#regionListPanel div.tabPanel ul li.selected
+{
+	border-color: #000000;
+	background-color: #aaaaaa;
+}

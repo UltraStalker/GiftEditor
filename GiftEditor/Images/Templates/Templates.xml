@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Templates>
+	<TemplateItem FileName="White Cap.jpg">
+		<Regions>
+			<Region Name="Main" Left="99.36" Top="87.12" Width="112.32" Height="114.48" />
+		</Regions>
+	</TemplateItem>
+	<TemplateItem FileName="Green Cap.jpg">
+		<Regions>
+			<Region Name="Main" Left="99.36" Top="87.12" Width="112.32" Height="114.48" />
+		</Regions>
+	</TemplateItem>
+	<TemplateItem FileName="Black Cap.jpg">
+		<Regions>
+			<Region Name="Main" Left="150" Top="87.12" Width="112.32" Height="114.48" />
+		</Regions>
+	</TemplateItem>
+	<TemplateItem FileName="White Cup.jpg">
+		<Regions>
+			<Region Name="Main" Left="130" Top="60" Width="200" Height="250" />
+		</Regions>
+	</TemplateItem>
+	<TemplateItem FileName="Black Cup.jpg">
+		<Regions>
+			<Region Name="Main" Left="80" Top="60" Width="160" Height="170" />
+		</Regions>
+	</TemplateItem>
+	<TemplateItem FileName="Gray T-Shirt.jpg">
+		<Regions>
+			<Region Name="Small" Left="105" Top="90" Width="100" Height="60" />
+			<Region Name="Main" Left="90" Top="160" Width="180" Height="170" />
+		</Regions>
+	</TemplateItem>
+	<TemplateItem FileName="Blue T-Shirt.jpg">
+		<Regions>
+			<Region Name="Pocket" Left="215" Top="137" Width="40" Height="40" />
+			<Region Name="Main" Left="90" Top="200" Width="180" Height="100" />
+		</Regions>
+	</TemplateItem>
+</Templates>
